@@ -14,29 +14,35 @@ class Counter: ObservableObject {
    @Published var minutes = 0
    @Published var seconds = 0
     
+   var selectedDate = Date()
+    
     init() {
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) {
             time in
             let calendar = Calendar.current
             let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: Date())
             let currentDate = calendar.date(from: components)
+            
+            let selectedComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: self.selectedDate)
+            
             var eventDateComponent = DateComponents()
-            eventDateComponent.year = 2022
-            eventDateComponent.month = 4
-            eventDateComponent.day = 11
-            eventDateComponent.hour = 8
-            eventDateComponent.minute = 0
-            eventDateComponent.second = 0
+            eventDateComponent.year = selectedComponents.year
+            eventDateComponent.month = selectedComponents.month
+            eventDateComponent.day = selectedComponents.day
+            eventDateComponent.hour = selectedComponents.hour
+            eventDateComponent.minute = selectedComponents.minute
+            eventDateComponent.second = selectedComponents.second
             
             let eventDate = calendar.date(from: eventDateComponent)
             
             let timeLeft = calendar.dateComponents([.day, .hour, .minute, .second], from: currentDate!, to: eventDate!)
             
-            
-            self.days = timeLeft.day!
-            self.hours = timeLeft.hour!
-            self.minutes = timeLeft.minute!
-            self.seconds = timeLeft.second!
+            if(timeLeft.second! >= 0){
+                self.days = timeLeft.day!
+                self.hours = timeLeft.hour!
+                self.minutes = timeLeft.minute!
+                self.seconds = timeLeft.second!
+            }
         }
     }
 }
@@ -47,6 +53,11 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
+            
+            DatePicker(selection: $counter.selectedDate, in: Date()..., displayedComponents: [.hourAndMinute, .date]){
+                Text("Selecione a data do evento: ")
+                    .padding()
+            }
     
             HStack{
                 Text("Faltam somente...")
@@ -61,7 +72,7 @@ struct ContentView: View {
             }
             
             HStack{
-                Text("Para planejamento estratégico...")
+                Text("Para o evento...")
                     .padding()
             }
             
