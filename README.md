@@ -4,6 +4,15 @@
 
 ---
 
+### Layout
+
+<div align="center">
+
+<img width="250px" src="./print01.png">
+
+</div> 
+
+---
 ### Technologies
 
 <div align="center">
