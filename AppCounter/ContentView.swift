@@ -54,6 +54,12 @@ struct ContentView: View {
     var body: some View {
         VStack {
             
+            HStack {
+                Text("APP - Quanto falta?")
+                    .padding()
+                    .font(.system(size: 30))
+            }
+            
             DatePicker(selection: $counter.selectedDate, in: Date()..., displayedComponents: [.hourAndMinute, .date]){
                 Text("Selecione a data do evento: ")
                     .padding()
