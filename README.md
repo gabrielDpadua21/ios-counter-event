@@ -1,4 +1,4 @@
-# Desenvolvimento IOS - APP Event Counter
+# IOS Development - APP Event Counter
 
 ### App to app to see how many days are left for the event
 
